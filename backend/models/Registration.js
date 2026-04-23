@@ -1,0 +1,12 @@
+const mongoose=require("mongoose");
+ const userId={type:mongoose.Schema.Types.ObjectId,ref:"User"};
+ const eventId={type:mongoose.Schema.Types.ObjectId,ref:"Event"};
+ const registeredAt={type:Date,default:Date.now};
+ const name=String;
+ const collegeId=String;
+ const collegeName=String;
+ const email=String;
+ const reminderSent={type:Boolean,default:false};
+ const schema=new mongoose.Schema({ userId, eventId, registeredAt, name, collegeId, collegeName, email, reminderSent });
+schema.index({userId:1,eventId:1},{unique:true});
+module.exports=mongoose.model("Registration",schema);
