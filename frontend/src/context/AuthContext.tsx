@@ -8,6 +8,7 @@ interface SignupInput {
   email: string;
   password: string;
   role?: UserRole;
+  collegeName: string;
 }
 
 interface AuthContextValue {
@@ -72,8 +73,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return normalizedUser;
   }, []);
 
-  const signup = useCallback(async ({ name, email, password, role }: SignupInput) => {
-    const response = await signupRequest({ name, email, password, role });
+  const signup = useCallback(async ({ name, email, password, role, collegeName }: SignupInput) => {
+    const response = await signupRequest({ name, email, password, role, collegeName });
     return response.msg;
   }, []);
 

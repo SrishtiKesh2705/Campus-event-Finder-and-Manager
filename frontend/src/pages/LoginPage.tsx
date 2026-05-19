@@ -40,6 +40,11 @@ export default function LoginPage() {
       if (!user) { setError("Login failed. Please try again."); return; }
       navigate(user.role === "admin" ? "/admin" : "/user", { replace: true });
     } catch (err: any) {
+      // If account exists but email not verified, send them to signup OTP step
+      if (err.response?.data?.needsVerification) {
+        navigate(`/signup?verify=${encodeURIComponent(email)}`);
+        return;
+      }
       setError(
         err.response?.data?.msg ||
         (err.message === "Network Error"
